@@ -1,4 +1,45 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+
+const Container = styled.div`
+    padding: 20px;
+    background-color: ${(props) => props.theme.colors.background};
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+const Title = styled.h1`
+    color: ${(props) => props.theme.colors.primary};
+`;
+
+const ProductList = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+`;
+
+const ProductCard = styled.div`
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    text-align: center;
+`;
+
+const ProductImage = styled.img`
+    max-width: 100%;
+    height: auto;
+`;
+
+const ProductTitle = styled.h2`
+    font-size: 18px;
+    margin: 10px 0;
+`;
+
+const ProductPrice = styled.p`
+    color: ${(props) => props.theme.colors.primary};`
 
 interface Product {
     id: string;
@@ -17,18 +58,18 @@ const HomePage: React.FC = () => {
     }, []);
 
     return (
-        <div>
-            <h1>Products</h1>
-            <div>
+        <Container>
+            <Title>Products</Title>
+            <ProductList>
                 {products.map((product) => (
-                    <div key={product.id}>
-                        <h2>{product.title}</h2>
-                        <img src={product.imageUrl} alt={product.title} />
-                        <p>Price: {product.discountedPrice}</p>
-                    </div>
+                    <ProductCard key={product.id}>
+                        <ProductImage src={product.imageUrl} alt={product.title} />
+                        <ProductTitle>{product.title}</ProductTitle>
+                        <ProductPrice>Price: {product.discountedPrice}</ProductPrice>
+                    </ProductCard>
                 ))}
-            </div>
-        </div>
+            </ProductList>
+        </Container>
     );
 };
 

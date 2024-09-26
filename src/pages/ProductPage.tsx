@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
 interface Product {
     id: string;
@@ -13,6 +14,7 @@ interface Product {
 const ProductPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [product, setProduct] = useState<Product | null>(null);
+    const { addToCart } = useCart();
 
         useEffect(() => {
             fetch(`https://v2.api.noroff.dev/online-shop/${id}`)
@@ -34,6 +36,14 @@ const ProductPage: React.FC = () => {
                 <p>{product.description}</p>
                 <p>Price: {product.discountedPrice}</p>
                 <p>Discount: {discountedPercentage}%</p>
+                <button onClick={() => addToCart({
+                    id: product.id,
+                    title: product.title,
+                    price: product.discountedPrice,
+                    quantity: 1
+                })}>
+                    Add to Cart
+                </button>
             </div>
         );
     };
