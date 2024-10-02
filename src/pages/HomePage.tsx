@@ -45,7 +45,10 @@ interface Product {
     id: string;
     title: string;
     discountedPrice: number;
-    imageUrl: string;
+    image: {
+        url: string;
+        alt: string;
+    };
 }
 
 const HomePage: React.FC = () => {
@@ -53,21 +56,30 @@ const HomePage: React.FC = () => {
 
     useEffect(() => {
         fetch('https://v2.api.noroff.dev/online-shop')
-            .then(response => response.json())
-            .then(data => setProducts(data));
-    }, []);
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("API Response Data:", data);
+                console.log("Extracted Product Data", data.data);
+                setProducts(data.data);
+            })
+            .catch((error) => console.error("Error fetching products:", error));
+            }, []);
 
     return (
         <Container>
             <Title>Products</Title>
             <ProductList>
-                {products.map((product) => (
-                    <ProductCard key={product.id}>
-                        <ProductImage src={product.imageUrl} alt={product.title} />
-                        <ProductTitle>{product.title}</ProductTitle>
-                        <ProductPrice>Price: {product.discountedPrice}</ProductPrice>
-                    </ProductCard>
-                ))}
+                {Array.isArray(products) ? (
+                    products.map((product) => (
+                        <ProductCard key={product.id}>
+                            <ProductImage src={product.image.url} alt={product.image.alt || product.title} />
+                            <ProductTitle>{product.title}</ProductTitle>
+                            <ProductPrice>Price: {product.discountedPrice}</ProductPrice>
+                        </ProductCard>
+                    ))
+                ) : (
+                    <p>Loading products...</p>
+                )}
             </ProductList>
         </Container>
     );

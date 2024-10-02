@@ -8,6 +8,7 @@ import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
 import CheckoutSuccessPage from './pages/CheckoutSuccessPage';
 import ContactPage from './pages/ContactPage';
+import Layout from './components/Layout';
 import './App.css';
 
 const App: React.FC = () => {
@@ -16,13 +17,15 @@ const App: React.FC = () => {
       <ThemeProvider theme={theme}>
         <GlobalStyles />
 
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/product/:id" element={<ProductPage />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-        </Routes>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/product/:id" element={<ProductPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Routes>
+        </Layout>
       </ThemeProvider>
 
     </Router>
