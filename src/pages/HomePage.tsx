@@ -3,57 +3,87 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const Container = styled.div`
-    padding: 20px;
-    background-color: ${(props) => props.theme.colors.background};
+    padding: 60px 20px;
+    background-color: #f5f5f5;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
 `;
 
 const Title = styled.h1`
-    color: ${(props) => props.theme.colors.primary};
+    color: #222;
+    font-size: 36px;
+    margin-bottom: 50px;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
 `;
 
 const ProductList = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1400px;
+    justify-items: center;
 `;
 
 const ProductCard = styled.div`
     background-color: white;
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px;
-    width: 200px;
+    border-radius 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
     text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    width: 300px;
+
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
 `;
 
 const ProductImage = styled.img`
-    max-width: 100%;
-    height: auto;
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #f1f1f1;
+    border-radius: 8px;
+    padding-bottom: 15px;
 `;
 
 const ProductTitle = styled.h2`
-    font-size: 18px;
-    margin: 10px 0;
+    font-size: 20px;
+    margin: 15px 0 10px;
+    color: #1c1c1c;
+    font-weight: 700;
+    font-family: "Roboto", sans-serif;
+    line-height: 1.3;
 `;
 
 const ProductPrice = styled.p`
-    color: ${(props) => props.theme.colors.primary};
+    color: #e63946;
+    font-weight: 600;
+    font-size: 16px;
+    margin: 5px 0 15px;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0.5px;
 `;
 
 const ViewButton = styled(Link)`
     display: inline-block;
-    padding: 10px 15px;
-    margin-top: 10px;
+    padding: 12px 20px;
+    margin-top: 15px;
     color: white;
-    background-color: ${(props) => props.theme.colors.primary};
+    background-color: #e63946;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
     
     &:hover {
-        background-color: ${(props) => props.theme.colors.secondary};
+        background-color: #d62839;
+        transform: translateY(-2px);
     }
 `;
 
