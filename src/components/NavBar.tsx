@@ -1,18 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import CartIcon from './CartIcon';
 
 const Nav = styled.nav`
     background-color: ${(props) => props.theme.colors.primary};
     padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 `;
 
 const NavList = styled.ul`
     list-style-type: none;
     display: flex;
-    justify-content: space-around;
-    padding: 0;
-    margin: 0;
+    gap: 20px;
 `;
 
 const NavItem = styled.li`
@@ -42,6 +44,7 @@ const NavBar: React.FC = () => {
                     <NavLink to="/contact">Contact</NavLink>
                 </NavItem>
             </NavList>
+            <CartIcon />
         </Nav>
     );
 };

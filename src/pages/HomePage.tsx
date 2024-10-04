@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
     padding: 20px;
@@ -39,7 +40,22 @@ const ProductTitle = styled.h2`
 `;
 
 const ProductPrice = styled.p`
-    color: ${(props) => props.theme.colors.primary};`
+    color: ${(props) => props.theme.colors.primary};
+`;
+
+const ViewButton = styled(Link)`
+    display: inline-block;
+    padding: 10px 15px;
+    margin-top: 10px;
+    color: white;
+    background-color: ${(props) => props.theme.colors.primary};
+    text-decoration: none;
+    border-radius: 5px;
+    
+    &:hover {
+        background-color: ${(props) => props.theme.colors.secondary};
+    }
+`;
 
 interface Product {
     id: string;
@@ -74,7 +90,9 @@ const HomePage: React.FC = () => {
                         <ProductCard key={product.id}>
                             <ProductImage src={product.image.url} alt={product.image.alt || product.title} />
                             <ProductTitle>{product.title}</ProductTitle>
-                            <ProductPrice>Price: {product.discountedPrice}</ProductPrice>
+                            <ProductPrice>Price: {product.discountedPrice},-</ProductPrice>
+
+                            <ViewButton to={`/product/${product.id}`}>View Product</ViewButton>
                         </ProductCard>
                     ))
                 ) : (

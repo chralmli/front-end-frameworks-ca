@@ -8,16 +8,28 @@ interface CartItem {
     quantity: number;
 }
 
-// Create the CartContext interface
+// CartContext interface
 interface CartContextType {
     cartItems: CartItem [];
     addToCart: (item: CartItem) => void;
     removeFromCart: (id: string) => void;
     clearCart: () => void;
+    cartCount: number;
 }
 
 // Create the CartContext with a default value
 const CartContext = createContext<CartContextType | undefined>(undefined);
+
+// Custom hook to use the CartContext
+export const useCart = () => {
+    const context = useContext(CartContext);
+
+    if (!context) {
+        throw new Error('useCart must be used within a CartProvider');
+    }
+
+    return context;
+};
 
 // Create a provider component
 interface CartProviderProps {
@@ -56,20 +68,12 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         setCartItems([]);
     };
 
+    // Calculate total number of items in the cart
+    const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
     return (
-        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart }}>
+        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart, cartCount }}>
             {children}
         </CartContext.Provider>
     );
-};
-
-// Custom hook to use the CartContext
-export const useCart = () => {
-    const context = useContext(CartContext);
-
-    if (!context) {
-        throw new Error('useCart must be used within a CartProvider');
-    }
-
-    return context;
 };
