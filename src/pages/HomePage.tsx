@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 const Container = styled.div`
     padding: 60px 20px;
-    background-color: #f5f5f5;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -12,7 +11,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-    color: #222;
+    color: ${(props) => props.theme.colors.text};
     font-size: 36px;
     margin-bottom: 50px;
     font-family: 'Roboto', sans-serif;
@@ -29,8 +28,8 @@ const ProductList = styled.div`
 `;
 
 const ProductCard = styled.div`
-    background-color: white;
-    border-radius 12px;
+    background-color: ${(props) => props.theme.colors.cardBackground};
+    border-radius: 14px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 20px;
     text-align: center;
@@ -56,14 +55,14 @@ const ProductImage = styled.img`
 const ProductTitle = styled.h2`
     font-size: 20px;
     margin: 15px 0 10px;
-    color: #1c1c1c;
+    color: ${(props) => props.theme.colors.text};
     font-weight: 700;
     font-family: "Roboto", sans-serif;
     line-height: 1.3;
 `;
 
 const ProductPrice = styled.p`
-    color: #e63946;
+    color: ${(props) => props.theme.colors.secondary};
     font-weight: 600;
     font-size: 16px;
     margin: 5px 0 15px;
@@ -76,7 +75,7 @@ const ViewButton = styled(Link)`
     padding: 12px 20px;
     margin-top: 15px;
     color: white;
-    background-color: #e63946;
+    background-color: ${(props) => props.theme.colors.primary};
     text-decoration: none;
     border-radius: 8px;
     transition: background-color 0.3s ease, transform 0.3s ease;

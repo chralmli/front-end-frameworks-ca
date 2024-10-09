@@ -3,21 +3,20 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyles = createGlobalStyle`
     /* CSS Reset */
     * {
-    margin : 0;
-    padding : 0;
-    box-sizing : border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     }
     
     /* Global body styles */
     body {
-    font-family : 'Roboto', sans-serif;
-    background-color : #f5f5f5;
-    color : #333;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+    color : #f5f5f5;
     }
     
     /* Global heading styles */
     h1, h2, h3, h4, h5, h6 {
-    color: #333;
     margin-bottom: 16px;
     }
     

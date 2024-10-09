@@ -14,7 +14,7 @@ const MainContent = styled.main`
 `;
 
 const Footer = styled.footer`
-    background-color: ${(props) => props.theme.colors.primary};
+    background-color: ${(props) => props.theme.colors.secondary};
     color: white;
     text-align: center;
     padding: 10px 0;

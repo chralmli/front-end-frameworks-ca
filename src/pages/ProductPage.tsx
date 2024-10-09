@@ -20,28 +20,51 @@ const ProductImage = styled.img`
 const ProductTitle = styled.h2`
     font-size: 24px;
     margin-bottom: 10px;
+    color: ${(props) => props.theme.colors.text};
 `;
 
 const ProductDescription = styled.p`
-font-size: 16px;
+    font-size: 16px;
     margin-bottom: 10px;
+    color: ${(props) => props.theme.colors.text};
+    line-height: 1.5;
 `;
 
 const ProductPrice = styled.p`
-    font-size: 16px;
+    font-size: 18px;
     margin-bottom: 10px;
+    color: ${(props) => props.theme.colors.text};
+
+    &.discounted {
+        color: #D32F2F;
+        font-weight: bold;
+    }
+`;
+
+const OriginalPrice = styled.span`
+    font-size: 16px;
+    text-decoration: line-through;
+    margin-right: 10px;
+    color: #888;
+`;
+
+const DiscountInfo = styled.span`
+    color: #e63946;
+    font-weight: bold;
+    margin-left: 10px;
 `;
 
 const AddToCartButton = styled.button`
-    padding: 10px 20px;
-    background-color: ${(props) => props.theme.colors.primary};
+    padding: 12px 20px;
+    background-color: #e63946;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 
     &:hover {
-        background-color: ${(props) => props.theme.colors.secondary};
+        background-color: #d62839;
     }
 `;
 
@@ -82,9 +105,11 @@ const ProductPage: React.FC = () => {
         const price = product.price ?? 0;
         const discountedPrice = product.discountedPrice ?? 0;
 
-        // Calculate the discount percentage
-        const discount = price - discountedPrice;
-        const discountedPercentage = price > 0 && discountedPrice > 0 ? ((discount / price) * 100).toFixed(0) : null;
+        // Calculate the discount percentage only if there is a discount
+        const discountedPercentage = 
+            price > 0 && discountedPrice > 0 && price > discountedPrice
+                ? ((1 - discountedPrice / price) * 100).toFixed(0)
+                : null;
 
         return (
             <ProductContainer>
@@ -100,11 +125,18 @@ const ProductPage: React.FC = () => {
                 <ProductDescription>{product.description}</ProductDescription>
 
                 {/* Display the product price */}
-                <ProductPrice>Price: {discountedPrice.toFixed(2)},-</ProductPrice>
-
-                {/* Only show the discount percentage if there's a valid discount */}
-                {discountedPercentage && (
-                    <ProductPrice>Discount: {discountedPercentage}%</ProductPrice>
+                {discountedPercentage ? (
+                    <>
+                        <ProductPrice className="discounted">
+                            {discountedPrice.toFixed(2)},-
+                        </ProductPrice>
+                        <ProductPrice>
+                            <OriginalPrice>{price.toFixed(2)},-</OriginalPrice>
+                            <DiscountInfo>{discountedPercentage}% off</DiscountInfo>
+                        </ProductPrice>
+                    </>
+                ) : (
+                    <ProductPrice>{price.toFixed(2)},-</ProductPrice>
                 )}
                 
                 {/* Add to Cart button */}
