@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode, useContext } from 'react';
+import React, { createContext, useState, ReactNode, useContext, useCallback } from 'react';
 
 // Define the structure of a CartItem
 interface CartItem {
@@ -6,6 +6,7 @@ interface CartItem {
     title: string;
     price: number;
     quantity: number;
+    imageUrl: string;
 }
 
 // CartContext interface
@@ -14,6 +15,8 @@ interface CartContextType {
     addToCart: (item: CartItem) => void;
     removeFromCart: (id: string) => void;
     clearCart: () => void;
+    increaseQuantity: (id: string) => void;
+    decreaseQuantity: (id: string) => void;
     cartCount: number;
 }
 
@@ -63,16 +66,39 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         );
     };
 
-    // Clear cart
-    const clearCart = () => {
-        setCartItems([]);
+    // Increase quantity of an item
+    const increaseQuantity = (id: string) => {
+        setCartItems((prevItems) => 
+            prevItems.map((cartItem) => 
+                cartItem.id === id
+                    ? { ...cartItem, quantity: cartItem.quantity + 1 }
+                    : cartItem
+            )
+        );
     };
+
+    // Decrease quantity of an item
+    const decreaseQuantity = (id: string) => {
+        setCartItems((prevItems) =>
+            prevItems.map((cartItem) =>
+                cartItem.id === id
+                   ? { ...cartItem, quantity: cartItem.quantity - 1 }
+                    : cartItem
+            )
+            .filter((cartItem) => cartItem.quantity > 0)
+        );
+    };
+
+    // Clear cart
+    const clearCart = useCallback(() => {
+        setCartItems([]);
+    }, []);
 
     // Calculate total number of items in the cart
     const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
     return (
-        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart, cartCount }}>
+        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart, increaseQuantity, decreaseQuantity, cartCount }}>
             {children}
         </CartContext.Provider>
     );

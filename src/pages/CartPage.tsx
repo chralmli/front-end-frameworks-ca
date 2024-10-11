@@ -31,9 +31,20 @@ const CartItem = styled.li`
     background-color: #f9f9f9;
 `;
 
-const CartItemDetails = styled.div`
+const CartItemDetailsWrapper = styled.div`
     display: flex;
-    flex-direction: column;
+    align-items: center;
+`;
+
+const CartItemImage = styled.img`
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    margin-right: 20px;
+    border-radius: 5px;
+`;
+
+const CartItemDetails = styled.div`
     text-align: left;
 `;
 
@@ -51,7 +62,23 @@ const CartItemPrice = styled.p`
 
 const CartItemQuantity = styled.p`
     margin: 5px 0;
+    display: flex;
+    align-items: center;
     color: ${(props) => props.theme.colors.secondaryText};
+`;
+
+const QuantityButton = styled.button`
+    background-color: ${(props) => props.theme.colors.primary};
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+        background-color: #b22222;
+    }
 `;
 
 const RemoveButton = styled.button`
@@ -64,7 +91,7 @@ const RemoveButton = styled.button`
     transition: background-color 0.3s ease-in-out;
 
     &:hover {
-        background-color: #d32f2f;
+        background-color: #b22222;
     }
 `;
 
@@ -106,13 +133,28 @@ const ClearCartButton = styled.button`
     transition: background-color 0.3s ease-in-out;
 
     &:hover {
-        background-color: #d32f2f;
+        background-color: #b22222;
+    }
+`;
+
+const BackToShopButton = styled.button`
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: ${(props) => props.theme.colors.primary};
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+        background-color: #b22222;
     }
 `;
 
 // Cart Page Component
 const CartPage: React.FC = () => {
-    const { cartItems, removeFromCart, clearCart } = useCart();
+    const { cartItems, removeFromCart, clearCart, increaseQuantity, decreaseQuantity } = useCart();
     const navigate = useNavigate();
     
     // Calculate total price
@@ -130,11 +172,18 @@ const CartPage: React.FC = () => {
                     <CartItemList>
                         {cartItems.map((item) => (
                             <CartItem key={item.id}>
-                                <CartItemDetails>
-                                    <CartItemTitle>{item.title}</CartItemTitle>
-                                    <CartItemPrice>${item.price}</CartItemPrice>
-                                    <CartItemQuantity>Quantity: {item.quantity}</CartItemQuantity>
-                                </CartItemDetails>
+                                <CartItemDetailsWrapper>
+                                    <CartItemImage src={item.imageUrl} alt={item.title} />
+                                    <CartItemDetails>
+                                        <CartItemTitle>{item.title}</CartItemTitle>
+                                        <CartItemPrice>${item.price}</CartItemPrice>
+                                        <CartItemQuantity>
+                                             <QuantityButton onClick={() => decreaseQuantity(item.id)}>-</QuantityButton>
+                                             <span style={{ margin: '0 10px' }}>{item.quantity}</span>
+                                             <QuantityButton onClick={() => increaseQuantity(item.id)}>+</QuantityButton>
+                                        </CartItemQuantity>
+                                    </CartItemDetails>
+                                </CartItemDetailsWrapper>
                                 <RemoveButton onClick={() => removeFromCart(item.id)}>Remove</RemoveButton>
                             </CartItem>
                         ))}
@@ -144,7 +193,10 @@ const CartPage: React.FC = () => {
                       <ClearCartButton onClick={clearCart}>Clear Cart</ClearCartButton>  
                 </>
             ) : (
-                <EmptyCartMessage>Your cart is empty.</EmptyCartMessage>
+                <>
+                    <EmptyCartMessage>Your cart is empty.</EmptyCartMessage>
+                    <BackToShopButton onClick={() => navigate('/')}>Back to Shop</BackToShopButton>
+                </>
             )}
         </CartContainer>
     );

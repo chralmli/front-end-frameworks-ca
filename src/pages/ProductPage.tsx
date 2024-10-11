@@ -68,6 +68,56 @@ const AddToCartButton = styled.button`
     }
 `;
 
+const ReviewsSection = styled.div`
+    margin-top: 30px;
+    width: 80%;
+`;
+
+const ReviewTitle = styled.h3`
+    margin-bottom: 15px;
+    color: ${(props) => props.theme.colors.text};
+`;
+
+const ReviewList = styled.ul`
+    list-style-type: none;
+    padding: 0;
+`;
+
+const ReviewItem = styled.li`
+    background: ${(props) => props.theme.colors.background};
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+`;
+
+const ReviewAuthor = styled.h4`
+    font-size: 16px;
+    color: ${(props) => props.theme.colors.text};
+    margin: 0;
+`;
+
+const ReviewText = styled.p`
+    color: ${(props) => props.theme.colors.text};
+    margin: 5px 0;
+`;
+
+const ReviewRating = styled.span`
+    display: inline-block;
+    background-color: #ffd700;
+    color: 333;
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-top: 5px;
+`;
+
+interface Review {
+    username: string;
+    description: string;
+    rating: number;
+}
+
 interface Product {
     id: string;
     title: string;
@@ -78,6 +128,7 @@ interface Product {
         url: string;
         alt: string;
     };
+    reviews: Review[];
 }
 
 const ProductPage: React.FC = () => {
@@ -144,10 +195,29 @@ const ProductPage: React.FC = () => {
                     id: product.id,
                     title: product.title,
                     price: product.discountedPrice,
-                    quantity: 1
+                    quantity: 1,
+                    imageUrl: product.image.url,
                 })}>
                     Add to Cart
                 </AddToCartButton>
+
+                {/* Reviews Section */}
+                <ReviewsSection>
+                    <ReviewTitle>Customer Reviews</ReviewTitle>
+                    {product.reviews && product.reviews.length > 0 ? (
+                        <ReviewList>
+                            {product.reviews.map((review, index) => (
+                                <ReviewItem key={index}>
+                                    <ReviewAuthor>{review.username}</ReviewAuthor>
+                                    <ReviewText>{review.description}</ReviewText>
+                                    <ReviewRating>{review.rating} out of 5</ReviewRating>
+                                </ReviewItem>
+                            ))}
+                        </ReviewList>
+                    ) : (
+                        <p>No reviews yet.</p>
+                    )}
+                </ReviewsSection>
             </ProductContainer>
         );
     };
