@@ -95,5 +95,5 @@ This project demonstrates my ability to plan, design, and build a fully function
 
 ## Live Demo
 
-Check out the live site here: (https://crimson-cart.netlify.app/)
+Check out the live site here: https://crimson-cart.netlify.app/
 
