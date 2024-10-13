@@ -3,6 +3,9 @@ import { useParams } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import styled from 'styled-components';
 
+// Import the environment variable
+const apiUrl = import.meta.env.VITE_API_BASE_URL;
+
 const ProductContainer = styled.div`
     padding: 20px;
     background-color: ${(props) => props.theme.colors.background};
@@ -98,19 +101,23 @@ const ReviewAuthor = styled.h4`
 `;
 
 const ReviewText = styled.p`
-    color: ${(props) => props.theme.colors.text};
+    color: ${(props) => props.theme.colors.secondaryText};
     margin: 5px 0;
 `;
 
 const ReviewRating = styled.span`
     display: inline-block;
     background-color: #ffd700;
-    color: 333;
+    color: #333;
     font-weight: bold;
     padding: 3px 8px;
     border-radius: 3px;
     margin-top: 5px;
 `;
+
+const NoReviews = styled.p`
+    color: ${(props) => props.theme.colors.text};
+`
 
 interface Review {
     username: string;
@@ -138,7 +145,7 @@ const ProductPage: React.FC = () => {
 
         useEffect(() => {
             if (id) {
-                fetch(`https://v2.api.noroff.dev/online-shop/${id}`)
+                fetch(`${apiUrl}/${id}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log("Fetched product: ", data.data);
@@ -215,7 +222,7 @@ const ProductPage: React.FC = () => {
                             ))}
                         </ReviewList>
                     ) : (
-                        <p>No reviews yet.</p>
+                        <NoReviews>No reviews yet.</NoReviews>
                     )}
                 </ReviewsSection>
             </ProductContainer>

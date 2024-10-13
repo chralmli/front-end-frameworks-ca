@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+const apiUrl = import.meta.env.VITE_API_BASE_URL;
+console.log('API URL:', apiUrl);
+
 const Container = styled.div`
     padding: 60px 20px;
     min-height: 100vh;
@@ -100,7 +103,7 @@ const HomePage: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
 
     useEffect(() => {
-        fetch('https://v2.api.noroff.dev/online-shop')
+        fetch(`${apiUrl}`)
             .then((response) => response.json())
             .then((data) => {
                 console.log("API Response Data:", data);
