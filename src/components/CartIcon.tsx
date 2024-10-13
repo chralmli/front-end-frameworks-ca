@@ -35,7 +35,7 @@ const CartIcon: React.FC = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate("/cart");
+        navigate("/checkout");
     };
 
     return (
