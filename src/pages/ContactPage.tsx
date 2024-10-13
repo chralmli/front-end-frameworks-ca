@@ -8,6 +8,10 @@ const FormContainer = styled.div`
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     max-width: 600px;
     margin: 20px auto;
+
+    @media (max-width: 768px) {
+        padding: 20px;
+    }
 `;
 
 const Form = styled.form`

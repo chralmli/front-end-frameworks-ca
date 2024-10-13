@@ -12,12 +12,19 @@ const CartPageTitle = styled.h1`
 const CartContainer = styled.div`
     padding: 20px;
     text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+
+    @media (max-width: 480px) {
+        padding: 10px;
+    }
 `;
 
 const CartItemList = styled.ul`
     list-style: none;
     padding: 0;
     margin: 20px 0;
+    max-width: 100%;
 `;
 
 const CartItem = styled.li`
@@ -29,11 +36,25 @@ const CartItem = styled.li`
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #f9f9f9;
+    max-width: 800px;
+    margin: 10px auto;
+
+    @media (max-width: 480px) {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 5px;
+        padding: 10px;
+    }
 `;
 
 const CartItemDetailsWrapper = styled.div`
     display: flex;
     align-items: center;
+
+    @media (max-width: 480px) {
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
 `;
 
 const CartItemImage = styled.img`
@@ -42,6 +63,10 @@ const CartItemImage = styled.img`
     object-fit: cover;
     margin-right: 20px;
     border-radius: 5px;
+
+    @media (max-width: 480px) {
+        margin-right: 10px;
+    }
 `;
 
 const CartItemDetails = styled.div`
@@ -52,12 +77,20 @@ const CartItemTitle = styled.h2`
     font-size: 18px;
     margin: 0 0 5px;
     color: ${(props) => props.theme.colors.text};
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+    }
 `;
 
 const CartItemPrice = styled.p`
     margin: 0;
     font-weight: bold;
     color: ${(props) => props.theme.colors.secondary};
+
+    @media (max-width: 480px) {
+        font-size: 14px;
+    }
 `;
 
 const CartItemQuantity = styled.p`
@@ -96,9 +129,14 @@ const RemoveButton = styled.button`
 `;
 
 const TotalPrice = styled.h3`
-    margin-top: 20px;
     font-size: 24px;
     color: ${(props) => props.theme.colors.text};
+    max-width: 800px;
+    margin: 20px auto;
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+    }
 `;
 
 const CheckoutButton = styled.button`
@@ -113,6 +151,11 @@ const CheckoutButton = styled.button`
 
     &:hover {
         background-color: #109c8f;
+    }
+
+    @media (max-width: 480px) {
+        padding: 8px 16px;
+        font-size: 14px;
     }
 `;
 
@@ -135,10 +178,14 @@ const ClearCartButton = styled.button`
     &:hover {
         background-color: #b22222;
     }
+
+    @media (max-width: 480px) {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
 `;
 
 const BackToShopButton = styled.button`
-    margin-top: 20px;
     padding: 10px 20px;
     background-color: ${(props) => props.theme.colors.primary};
     color: white;
@@ -146,9 +193,16 @@ const BackToShopButton = styled.button`
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
+    margin: 20px auto;
+    display: block;
 
     &:hover {
         background-color: #b22222;
+    }
+
+    @media (max-width: 480px) {
+        padding: 8px 16px;
+        font-size: 14px;
     }
 `;
 
