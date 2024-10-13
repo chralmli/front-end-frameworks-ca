@@ -3,7 +3,7 @@ import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const CartPageTitle = styled.h1`
+const CheckoutPageTitle = styled.h1`
     text-align: center;
     margin-bottom: 20px;
     color: ${(props) => props.theme.colors.text};
@@ -206,8 +206,8 @@ const BackToShopButton = styled.button`
     }
 `;
 
-// Cart Page Component
-const CartPage: React.FC = () => {
+// CheckoutPage Component
+const CheckoutPage: React.FC = () => {
     const { cartItems, removeFromCart, clearCart, increaseQuantity, decreaseQuantity } = useCart();
     const navigate = useNavigate();
     
@@ -220,7 +220,7 @@ const CartPage: React.FC = () => {
     }
     return (
         <CartContainer>
-            <CartPageTitle>Your Cart</CartPageTitle>
+            <CheckoutPageTitle>Your Cart</CheckoutPageTitle>
             {cartItems.length > 0 ? (
                 <>
                     <CartItemList>
@@ -256,4 +256,4 @@ const CartPage: React.FC = () => {
     );
 };
 
-export default CartPage;
+export default CheckoutPage;
