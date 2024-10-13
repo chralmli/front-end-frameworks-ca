@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 
 const apiUrl = import.meta.env.VITE_API_BASE_URL;
-console.log('API URL:', apiUrl);
 
 const Container = styled.div`
     padding: 60px 20px;
