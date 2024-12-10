@@ -1,5 +1,7 @@
 # E-Commerce Store (React + TypeScript)
 
+![Ecom Screenshot](./src/assets/media/ecom-mockup.png)
+
 This is a fully functional e-commerce application built with React, TypeScript, and Vite. It is styled using Styled Components and demonstrates industry best practices in component-based architecture, routing, and state management. The project is designed as a professional portfolio piece, showcasing my knowledge of modern JavaScript frameworks and development patterns.
 
 ## Key Features
@@ -95,5 +97,4 @@ This project demonstrates my ability to plan, design, and build a fully function
 
 ## Live Demo
 
-Check out the live site here: https://crimson-cart.netlify.app/
-
+Check out the live site here: [https://crimson-cart.netlify.app/](https://crimson-cart.netlify.app/)
